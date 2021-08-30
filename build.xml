@@ -1,0 +1,54 @@
+<project name="MispLab3" default="compile" basedir=".">
+
+    <property name="build.dir" value="build" />
+    <property name="scala-source.dir" value="src/main/scala/" />
+    <property name="scala-test.dir" value="src/test/scala" />
+
+
+    <property environment="env" />
+    <property name="scala.home" value="${env.SCALA_HOME}" />
+
+
+    <target name="compile" >
+
+    </target>
+
+    <target name="build">
+        <echo>Build</echo>
+        <mkdir dir="${build.dir}"/>
+        <scalac srcdir="${sources.dir}"
+                destdir="${build.dir}"
+                classpathref="build.classpath"
+                deprecation="on">
+        <include name="${scala-source.dir}/*.scala" />
+        </scalac>
+    </target>
+
+    <target name="clean">
+        <echo>Clean</echo>
+        <delete dir="${build.dir}" />
+        <echo>End Clean</echo>
+    </target>
+
+    <target name="test">
+        <junit>
+
+        </junit>
+
+    </target>
+
+    <target name="native2ascii">
+
+    </target>
+
+    <target name="team">
+
+    </target>
+
+    <target name="diff">
+
+    </target>
+
+
+
+</project>
