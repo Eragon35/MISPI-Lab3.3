@@ -4,6 +4,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class ReadFromConsole {
+    /**
+     *
+     * @param str string where from we are trying to get the point
+     * @return option<Point> if we can get point from the input string
+     */
     Optional<Point> read(String str) {
         try {
             if (str.contains("exit") || str.contains("учше")) System.exit(0);

@@ -17,6 +17,9 @@ public class Point {
 
     }
 
+    /**
+     * @return true if point inside area and false if not
+     */
     public boolean check() {
         if (x >= 0) {
             if (y >= 0) return x * x + y * y <= r * r;
