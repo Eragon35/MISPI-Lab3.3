@@ -1,25 +1,29 @@
 <project name="MispLab3" default="build" basedir=".">
 
-    <property name="build.dir" value="build" />
-    <property name="source.dir" value="src/main/scala/" />
-    <property name="test.dir" value="src/test/scala" />
+    <property name="build" value="build" />
+    <property name="src" value="src/main/java/" />
+    <property name="test_src" value="src/test/java" />
     <property name="classes" value="build/classes"/>
+    <property name="lib" value="lib"/>
+    <property name="doc" value="doc"/>
 
     <property environment="env" />
 
 
     <target name="compile" >
+        <echo>Compiling files</echo>
         <mkdir dir="build/classes"/>
         <javac destdir="build/classes" includeantruntime="false">
-            <src path="src/main/java"/>
+            <src path="${src}"/>
         </javac>
+
     </target>
 
     <target name="build" depends="compile">
         <echo>Build started</echo>
-        <jar destfile="${build.dir}/${ant.project.name}.jar" basedir="${classes}">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
             <manifest>
-                <attribute name="Main–Class" value="ant.project.name"/>
+                <attribute name="Main–Class" value="${ant.project.name}"/>
             </manifest>
         </jar>
         <echo>Build finished</echo>
@@ -27,10 +31,11 @@
 
     <target name="clean">
         <echo>Clean</echo>
-        <delete dir="${build.dir}" />
+        <delete dir="${build}" />
     </target>
 
     <target name="test" depends="build">
+        <echo>Starting testing</echo>
         <junit>
 
         </junit>
@@ -38,7 +43,10 @@
     </target>
 
     <target name="doc">
-
+        <echo>Generating docs</echo>
+        <javadoc destdir="${doc}">
+            <fileset dir="${src}"/>
+        </javadoc>
     </target>
 
     <target name="diff">
