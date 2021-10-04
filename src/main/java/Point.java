@@ -1,4 +1,5 @@
 import java.util.Objects;
+import java.util.Optional;
 
 public class Point {
     Double x;
@@ -20,12 +21,15 @@ public class Point {
     /**
      * @return true if point inside area and false if not
      */
-    public boolean check() {
+    public String check() {
+        if ((x < -2) || (x > 2)) return "X should be between [-2..2]";
+        else if ((y <= -3) || (y >= 5)) return "Y should be between (-3..5)";
+        else if ((r < 1) || (r > 5)) return "R should be between [1..5]";
         if (x >= 0) {
-            if (y >= 0) return x * x + y * y <= r * r;
-            else return y >= (x - r / 2);
+            if (y >= 0) return String.valueOf(x * x + y * y <= r * r);
+            else return String.valueOf(y >= (x - r / 2));
         }
-        else return (y > -r) && (x > -r) && (y <= 0);
+        else return String.valueOf((y > -r) && (x > -r) && (y <= 0));
     }
 
     @Override

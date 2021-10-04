@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Greeting greeting = new Greeting();
         greeting.hello();
-        ReadFromConsole readFromConsole = new ReadFromConsole();
+        PointParser readFromConsole = new PointParser();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("\nPlease write x, y, r to check if it's inside the figure: ");
