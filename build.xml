@@ -17,13 +17,16 @@
         <javac destdir="build/classes" includeantruntime="false">
             <src path="${src}"/>
         </javac>
+        <javac destdir="build/classes" includeantruntime="false">
+            <src path="${test_src}"/>
+        </javac>
 
     </target>
 
 <!--    компиляция исходных кодов проекта и их упаковка в исполняемый jar-архив-->
     <target name="build" depends="compile">
         <echo>Build started</echo>
-        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}" excludes="Test*.class">
             <manifest>
                 <attribute name="Main–Class" value="${ant.project.name}"/>
             </manifest>
@@ -39,10 +42,14 @@
     </target>
 
 <!--    запуск junit-тестов проекта-->
-    <target name="test" depends="build">
+    <target name="test" depends="compile">
         <echo>Starting testing</echo>
-        <junit>
-
+        <junit printsummary="yes">
+            <classpath>
+                <pathelement location="${classes}"/>
+            </classpath>
+            <test name="TestRead"/>
+            <test name="TestCheck"/>
         </junit>
 
     </target>
@@ -80,7 +87,7 @@
     </target>
 
 <!--    осуществляет проверку состояния рабочей копии, и, если изменения касаются классов,
-        указанных в файле параметров выполняет commit в репозиторий git-->
+        указанных в файле параметров выполняет commit в репозиторий svn-->
     <target name="diff">
         <exec executable="git" dir = "${src}">
             <arg value="add"/>

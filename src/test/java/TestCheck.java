@@ -1,7 +1,7 @@
 import junit.framework.TestCase;
 import org.junit.Assert;
 
-public class CheckTest extends TestCase {
+public class TestCheck extends TestCase {
 
     public void testFirstQuarterIn() { Assert.assertTrue(new Point(1, 2, 3).check()); }
     public void testFirstQuarterBorder() { Assert.assertTrue(new Point(2, 2, 4).check()); }

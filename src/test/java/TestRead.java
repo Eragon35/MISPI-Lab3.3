@@ -2,7 +2,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 
 
-public class ReadTest extends TestCase {
+public class TestRead extends TestCase {
     private final ReadFromConsole rfc = new ReadFromConsole();
 
     public void testZeroArgument() { Assert.assertFalse(rfc.read("").isPresent()); }
