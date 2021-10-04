@@ -82,7 +82,15 @@
 <!--    осуществляет проверку состояния рабочей копии, и, если изменения касаются классов,
         указанных в файле параметров выполняет commit в репозиторий git-->
     <target name="diff">
-
+        <exec executable="git" dir = "${src}">
+            <arg value="add"/>
+            <arg value="*"/>
+        </exec>
+        <exec executable="git" dir = "${src}">
+            <arg value="commit"/>
+            <arg value="-m"/>
+            <arg value="new modification"/>
+        </exec>
     </target>
 
 
