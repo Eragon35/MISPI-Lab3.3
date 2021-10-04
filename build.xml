@@ -10,6 +10,7 @@
     <property environment="env" />
 
 
+<!--    компиляция исходных кодов проекта-->
     <target name="compile" >
         <echo>Compiling files</echo>
         <mkdir dir="build/classes"/>
@@ -19,6 +20,7 @@
 
     </target>
 
+<!--    компиляция исходных кодов проекта и их упаковка в исполняемый jar-архив-->
     <target name="build" depends="compile">
         <echo>Build started</echo>
         <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
@@ -29,11 +31,14 @@
         <echo>Build finished</echo>
     </target>
 
+<!--    удаление скомпилированных классов проекта и всех временных файлов (если они есть)-->
     <target name="clean">
         <echo>Clean</echo>
-        <delete dir="${build}" />
+        <delete dir="${build}"/>
+        <delete dir="${doc}"/>
     </target>
 
+<!--    запуск junit-тестов проекта-->
     <target name="test" depends="build">
         <echo>Starting testing</echo>
         <junit>
@@ -42,13 +47,40 @@
 
     </target>
 
-    <target name="doc">
+<!--    добавление в MANIFEST.MF MD5 и SHA-1 файлов проекта,
+        а также генерация и добавление в архив javadoc по всем классам проекта-->
+    <target name="doc" depends="compile">
         <echo>Generating docs</echo>
+        <checksum file="${src}/Greeting.java" algorithm="md5" property="greeting.md5"/>
+        <checksum file="${src}/Greeting.java" algorithm="sha1" property="greeting.sh1"/>
+        <checksum file="${src}/Main.java" algorithm="md5" property="main.md5"/>
+        <checksum file="${src}/Main.java" algorithm="sha1" property="main.sh1"/>
+        <checksum file="${src}/Point.java" algorithm="md5" property="point.md5"/>
+        <checksum file="${src}/Point.java" algorithm="sha1" property="point.sh1"/>
+        <checksum file="${src}/ReadFromConsole.java" algorithm="md5" property="readFromConsole.md5"/>
+        <checksum file="${src}/ReadFromConsole.java" algorithm="sha1" property="readFromConsole.sh1"/>
+
+        <jar destfile="${build}/${ant.project.name}.jar" basedir="${classes}">
+            <manifest>
+                <attribute name="Main–Class" value="${ant.project.name}"/>
+                <attribute name="Greeting md5 sum" value="${greeting.md5}" />
+                <attribute name="Greeting sha1 sum" value="${greeting.sh1}" />
+                <attribute name="Main md5 sum" value="${main.md5}" />
+                <attribute name="Main sha1 sum" value="${main.sh1}" />
+                <attribute name="Point md5 sum" value="${point.md5}" />
+                <attribute name="Point sha1 sum" value="${point.sh1}" />
+                <attribute name="ReadFromConsole md5 sum" value="${readFromConsole.md5}" />
+                <attribute name="ReadFromConsole sha1 sum" value="${readFromConsole.sh1}" />
+            </manifest>
+        </jar>
+
         <javadoc destdir="${doc}">
             <fileset dir="${src}"/>
         </javadoc>
     </target>
 
+<!--    осуществляет проверку состояния рабочей копии, и, если изменения касаются классов,
+        указанных в файле параметров выполняет commit в репозиторий git-->
     <target name="diff">
 
     </target>
